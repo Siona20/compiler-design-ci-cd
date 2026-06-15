@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyLint-Lite: Interactive Python Syntax & Lexical Analyzer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo-area">
+                    <i class="fa-brands fa-python python-logo"></i>
+                    <div class="logo-text">
+                        <h1>PyLint-Lite</h1>
+                        <span class="logo-badge">Lexical & Syntax Visualizer</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <button id="btn-theme-toggle" class="icon-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <div class="divider"></div>
+                <div class="status-indicator-container">
+                    <span id="analysis-badge" class="badge badge-success">
+                        <i class="fa-solid fa-circle-check"></i> System Idle
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="app-workspace">
+            <!-- Center Panel: Editor & Diagnostic Log -->
+            <section class="workspace-center">
+                <!-- Code Editor Frame -->
+                <div class="editor-frame card">
+                    <div class="editor-frame-header">
+                        <div class="win-buttons">
+                            <span class="win-btn close"></span>
+                            <span class="win-btn minimize"></span>
+                            <span class="win-btn maximize"></span>
+                        </div>
+                        <div class="editor-title">
+                            <i class="fa-brands fa-python text-python"></i> main.py
+                        </div>
+                        <div class="editor-actions">
+                            <button id="btn-run" class="btn-text" style="color: var(--color-success); font-weight: bold; margin-right: 12px;"><i class="fa-solid fa-play"></i> Run Analysis</button>
+                            <button id="btn-clear" class="btn-text" title="Clear Code"><i class="fa-solid fa-trash-can"></i> Clear</button>
+                        </div>
+                    </div>
+                    <!-- Editor Container -->
+                    <div class="editor-body">
+                        <div id="monaco-editor-container"></div>
+                    </div>
+                </div>
+
+                <!-- Diagnostic Terminal -->
+                <div class="terminal-frame card">
+                    <div class="terminal-header">
+                        <h3><i class="fa-solid fa-terminal"></i> Diagnostic Report Log</h3>
+                        <span id="error-summary-badge" class="badge badge-success">No errors</span>
+                    </div>
+                    <div class="terminal-body" id="diagnostics-log"></div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Compiler State Visualizers -->
+            <section class="workspace-right">
+                <div class="visualizer-tabs card">
+                    <div class="terminal-header">
+                        <h3><i class="fa-solid fa-table-list"></i> Lexer Tokens</h3>
+                    </div>
+                    <div class="tab-contents">
+                        <!-- Tokens Visualizer -->
+                        <div class="tab-pane active" id="tab-tokens">
+                            <div class="token-toolbar">
+                                <div class="search-box">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" id="token-search" placeholder="Filter tokens...">
+                                </div>
+                                <select id="token-type-filter">
+                                    <option value="ALL">All Types</option>
+                                    <option value="KEYWORD">Keywords</option>
+                                    <option value="BUILTIN">Built-ins</option>
+                                    <option value="IDENTIFIER">Identifiers</option>
+                                    <option value="NUMBER">Numbers</option>
+                                    <option value="STRING">Strings</option>
+                                    <option value="OPERATOR">Operators</option>
+                                    <option value="PUNCT">Punctuation</option>
+                                    <option value="INVALID_VAR">Invalid Variables</option>
+                                </select>
+                            </div>
+                            <div class="table-container">
+                                <table class="token-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Line</th>
+                                            <th>Type</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tokens-table-body">
+                                        <!-- Javascript-populated rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.js"></script>
+    <!-- Analyzer JS module -->
+    <script src="analyzer.js"></script>
+    <!-- Custom APP JS -->
+    <script src="app.js"></script>
+</body>
+</html>
