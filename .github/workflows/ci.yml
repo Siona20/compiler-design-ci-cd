@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run analyzer tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Package project sources
+        run: zip compiler-design-project.zip README.md cd_project.py analyzer.js app.js index.html style.css
+
+      - name: Upload project artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiler-design-project
+          path: compiler-design-project.zip
+          if-no-files-found: error
