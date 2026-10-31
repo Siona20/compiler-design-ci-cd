@@ -392,7 +392,7 @@ class SyntaxAnalyzer:
 
 # Input Handling & Execution
 if __name__ == "__main__":
-    analyzer = SyntaxAnalyzer()
+    
 
     print("Enter the Python code to analyze.")
     print("(Press Ctrl+Z, then Enter, to finish input):\n")
