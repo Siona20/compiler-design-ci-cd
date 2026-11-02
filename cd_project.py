@@ -4,9 +4,7 @@ import keyword
 class SyntaxAnalyzer:
        
     def __init__(self):
-        self.errs = []
-        self.stack = [0]
-        self.bracket_stack = []
+        
         self.needs_ind = False
         
         # Centralized constants
@@ -30,12 +28,7 @@ class SyntaxAnalyzer:
         return ws
 
     def strip_line(self, line: str) -> str:
-        """Removes inline comments and trailing whitespace."""
-        code = line.split('#')[0]
-        while code and code[-1] in (' ', '\t', '\r', '\n'):
-            code = code[:-1]
-        return code
-
+        """Remo
     def get_word(self, text: str) -> str:
         """Extracts the very first alphanumeric word from a string."""
         word = ""
